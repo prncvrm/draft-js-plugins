@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import strategy from 'emojione/emoji.json';
 import createEmojisFromStrategy from '../../utils/createEmojisFromStrategy';
 import defaultEmojiGroups from '../../constants/defaultEmojiGroups';
 import Popover from './Popover';
 
+const Popover = loadable(() => import('./Popover'), { fallback: <></> });
 const emojis = createEmojisFromStrategy(strategy);
 
 export default class EmojiSelect extends Component {
@@ -103,18 +105,20 @@ export default class EmojiSelect extends Component {
         >
           {selectButtonContent}
         </button>
-        <Popover
-          cacheBustParam={cacheBustParam}
-          imagePath={imagePath}
-          imageType={imageType}
-          theme={theme}
-          store={store}
-          groups={selectGroups}
-          emojis={emojis}
-          toneSelectOpenDelay={toneSelectOpenDelay}
-          isOpen={this.state.isOpen}
-          useNativeArt={useNativeArt}
-        />
+        {this.state.isOpen && (
+          <Popover
+            cacheBustParam={cacheBustParam}
+            imagePath={imagePath}
+            imageType={imageType}
+            theme={theme}
+            store={store}
+            groups={selectGroups}
+            emojis={emojis}
+            toneSelectOpenDelay={toneSelectOpenDelay}
+            isOpen={this.state.isOpen}
+            useNativeArt={useNativeArt}
+          />
+        )}
       </div>
     );
   }
