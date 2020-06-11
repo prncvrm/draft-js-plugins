@@ -4,7 +4,6 @@ import loadable from '@loadable/component';
 import strategy from 'emojione/emoji.json';
 import createEmojisFromStrategy from '../../utils/createEmojisFromStrategy';
 import defaultEmojiGroups from '../../constants/defaultEmojiGroups';
-import Popover from './Popover';
 
 const Popover = loadable(() => import('./Popover'), { fallback: <></> });
 const emojis = createEmojisFromStrategy(strategy);
